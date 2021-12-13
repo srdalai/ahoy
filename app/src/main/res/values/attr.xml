@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="DetailsCtaButton">
+        <attr name="titleText" format="string" localization="suggested" />
+        <attr name="textColor" format="color" />
+        <attr name="iconWidth" format="dimension" localization="suggested" />
+        <attr name="iconWidthInt" format="integer" localization="suggested" />
+        <attr name="iconHeight" format="dimension" localization="suggested" />
+        <attr name="iconHeightInt" format="integer" localization="suggested" />
+        <attr name="iconDrawable" format="reference" />
+        <attr name="iconColor" format="reference" />
+    </declare-styleable>
+
+</resources>

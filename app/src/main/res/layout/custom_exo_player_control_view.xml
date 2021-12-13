@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#99000000">
+
+    <ImageView
+        android:id="@+id/image_view_close"
+        android:layout_width="@dimen/player_secondary_icon_size"
+        android:layout_height="@dimen/player_secondary_icon_size"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/player_icon_selector"
+        android:clickable="true"
+        android:contentDescription="Close"
+        android:focusable="true"
+        android:nextFocusUp="@id/exo_progress"
+        android:padding="4dp"
+        android:visibility="visible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_close"
+        app:tint="@color/white" />
+
+    <TextView
+        android:id="@+id/content_title_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/sf_ui_text_medium"
+        android:text="Content Title"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/secondary_player_controls"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/image_view_subs"
+            android:layout_width="@dimen/player_secondary_icon_size"
+            android:layout_height="@dimen/player_secondary_icon_size"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/player_icon_selector"
+            android:clickable="true"
+            android:contentDescription="Subtitles"
+            android:focusable="true"
+            android:nextFocusUp="@id/exo_progress"
+            android:padding="4dp"
+            android:visibility="visible"
+            app:srcCompat="@drawable/ic_subtitles"
+            app:tint="@color/white" />
+
+        <ImageView
+            android:id="@+id/image_view_resolution"
+            android:layout_width="@dimen/player_secondary_icon_size"
+            android:layout_height="@dimen/player_secondary_icon_size"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/player_icon_selector"
+            android:clickable="true"
+            android:contentDescription="Resolution"
+            android:focusable="true"
+            android:nextFocusUp="@id/exo_progress"
+            android:padding="4dp"
+            android:visibility="visible"
+            app:srcCompat="@drawable/ic_high_quality"
+            app:tint="@color/white" />
+
+        <ImageView
+            android:id="@+id/image_view_multi_audio"
+            android:layout_width="@dimen/player_secondary_icon_size"
+            android:layout_height="@dimen/player_secondary_icon_size"
+            android:background="@drawable/player_icon_selector"
+            android:clickable="true"
+            android:contentDescription="Multi Audio"
+            android:focusable="true"
+            android:nextFocusUp="@id/exo_progress"
+            android:padding="4dp"
+            android:visibility="visible"
+            app:srcCompat="@drawable/ic_audiotrack"
+            app:tint="@color/white" />
+
+    </LinearLayout>
+
+    <requestFocus
+        android:layout_width="200dp"
+        android:layout_height="200dp" />
+
+    <!--<FrameLayout
+        android:id="@+id/thumb_frame"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="40dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@id/exo_progress"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageView
+            android:id="@+id/thumb_image_view"
+            android:layout_width="200dp"
+            android:layout_height="113dp"
+            android:background="@drawable/video_frame"
+            android:padding="2dp"
+            android:scaleType="fitXY" />
+    </FrameLayout>-->
+
+    <TextView
+        android:id="@id/exo_position"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginBottom="24dp"
+        android:fontFamily="@font/sf_ui_text_regular"
+        android:includeFontPadding="false"
+        android:textColor="#FFBEBEBE"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <View
+        android:id="@id/exo_progress_placeholder"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/exo_duration"
+        app:layout_constraintStart_toEndOf="@id/exo_position" />
+
+    <TextView
+        android:id="@id/exo_duration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="24dp"
+        android:fontFamily="@font/sf_ui_text_regular"
+        android:includeFontPadding="false"
+        android:textColor="#FFBEBEBE"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/primary_player_controls"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/image_view_replay"
+            android:layout_width="@dimen/player_icon_size"
+            android:layout_height="@dimen/player_icon_size"
+            android:layout_marginEnd="48dp"
+            android:background="@drawable/player_icon_selector"
+            android:clickable="true"
+            android:contentDescription="Replay"
+            android:focusable="true"
+            android:nextFocusUp="@id/exo_progress"
+            android:padding="4dp"
+            app:srcCompat="@drawable/ic_replay_10"
+            app:tint="@color/white" />
+
+        <ImageView
+            android:id="@+id/exo_play"
+            android:layout_width="@dimen/player_icon_size"
+            android:layout_height="@dimen/player_icon_size"
+            android:background="@drawable/player_icon_selector"
+            android:clickable="true"
+            android:contentDescription="Play"
+            android:focusable="true"
+            android:nextFocusUp="@id/exo_progress"
+            android:padding="4dp"
+            app:srcCompat="@drawable/ic_play_arrow"
+            app:tint="@color/white" />
+
+        <ImageView
+            android:id="@+id/exo_pause"
+            android:layout_width="@dimen/player_icon_size"
+            android:layout_height="@dimen/player_icon_size"
+            android:background="@drawable/player_icon_selector"
+            android:clickable="true"
+            android:contentDescription="Pause"
+            android:focusable="true"
+            android:nextFocusUp="@id/exo_progress"
+            android:padding="4dp"
+            app:srcCompat="@drawable/ic_pause"
+            app:tint="@color/white" />
+
+
+        <ImageView
+            android:id="@+id/image_view_forward"
+            android:layout_width="@dimen/player_icon_size"
+            android:layout_height="@dimen/player_icon_size"
+            android:layout_marginStart="48dp"
+            android:background="@drawable/player_icon_selector"
+            android:clickable="true"
+            android:contentDescription="Forward"
+            android:focusable="true"
+            android:nextFocusUp="@id/exo_progress"
+            android:padding="4dp"
+            app:srcCompat="@drawable/ic_forward_10"
+            app:tint="@color/white" />
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_above="@id/seekbar_brightness"
+            android:layout_marginStart="20dp"
+            app:srcCompat="@drawable/ic_brightness_high"
+            app:tint="@color/white" />
+
+        <com.sdtechnocrat.ahoy.ui.VerticalSeekBar
+            android:id="@+id/seekbar_brightness"
+            android:layout_width="wrap_content"
+            android:layout_height="180dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="20dp"
+            android:max="100"
+            android:progress="50"
+            android:progressTint="@color/white"
+            android:thumbTint="@color/white" />
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_above="@id/seekbar_volume"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="20dp"
+            app:srcCompat="@drawable/ic_volume_up"
+            app:tint="@color/white" />
+
+        <com.sdtechnocrat.ahoy.ui.VerticalSeekBar
+            android:id="@+id/seekbar_volume"
+            android:layout_width="wrap_content"
+            android:layout_height="180dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="20dp"
+            android:max="100"
+            android:progress="50"
+            android:progressTint="@color/white"
+            android:thumbTint="@color/white" />
+    </RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

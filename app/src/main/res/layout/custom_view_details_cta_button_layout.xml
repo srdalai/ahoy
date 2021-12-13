@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:layout_width="@dimen/details_cta_icon_size"
+        android:layout_height="@dimen/details_cta_icon_size"
+        android:layout_marginTop="@dimen/details_cta_vert_padding"
+        app:srcCompat="@drawable/ic_share"
+        app:tint="@color/white" />
+
+    <TextView
+        android:layout_width="@dimen/details_cta_text_width"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/details_cta_vert_padding"
+        android:layout_marginBottom="@dimen/details_cta_vert_padding"
+        android:fontFamily="@font/sf_ui_text_regular"
+        android:gravity="center"
+        android:maxLines="1"
+        android:textColor="@color/white"
+        android:textSize="12sp" />
+</merge>

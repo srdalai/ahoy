@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".views.ContentDetailsActivity"
+    tools:ignore="SpeakableTextPresentCheck">
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/parent_scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="100dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/image_view_poster"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintDimensionRatio="H,1.78:1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/text_view_content_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:fontFamily="@font/sf_ui_text_medium"
+                android:text=""
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:textStyle="normal" />
+
+            <LinearLayout
+                android:id="@+id/metadata_linear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal" />
+
+            <TextView
+                android:id="@+id/text_view_genre"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="20dp"
+                android:ellipsize="marquee"
+                android:fontFamily="@font/sf_ui_text_regular"
+                android:singleLine="true"
+                android:text=""
+                android:textSize="16sp" />
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@color/color_secondary">
+
+                <LinearLayout
+                    android:id="@+id/actions_linear"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:orientation="horizontal"
+                    android:paddingTop="12dp"
+                    android:paddingBottom="12dp"
+                    android:visibility="gone">
+
+                    <!--<LinearLayout
+                        android:id="@+id/trailer_linear"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/details_cta_item_bg"
+                        android:clickable="true"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical"
+                        android:paddingTop="@dimen/details_cta_vert_padding"
+                        android:paddingBottom="@dimen/details_cta_vert_padding">
+
+                        <ImageView
+                            android:layout_width="@dimen/details_cta_icon_size"
+                            android:layout_height="@dimen/details_cta_icon_size"
+                            app:srcCompat="@drawable/outline_play_circle"
+                            app:tint="@color/white" />
+
+                        <TextView
+                            android:layout_width="@dimen/details_cta_text_width"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:gravity="center"
+                            android:maxLines="1"
+                            android:text="Trailer"
+                            android:textColor="@color/white" />
+                    </LinearLayout>-->
+
+                    <com.sdtechnocrat.ahoy.ui.DetailsCtaButton
+                        android:id="@+id/btn_trailer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:iconDrawable="@drawable/ic_play_circle"
+                        app:titleText="Trailer" />
+
+                    <com.sdtechnocrat.ahoy.ui.DetailsCtaButton
+                        android:id="@+id/btn_download"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:iconDrawable="@drawable/ic_cloud_download"
+                        app:titleText="Download" />
+
+                    <com.sdtechnocrat.ahoy.ui.DetailsCtaButton
+                        android:id="@+id/btn_watchlist"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:iconDrawable="@drawable/ic_add"
+                        app:titleText="Watchlist" />
+
+                    <!--<com.sdtechnocrat.ahoy.ui.DetailsCtaButton
+                        android:id="@+id/btn_cast"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:iconDrawable="@drawable/ic_cast"
+                        app:titleText="Cast" />-->
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical">
+
+                        <androidx.mediarouter.app.MediaRouteButton
+                            android:id="@+id/media_route_button"
+                            android:layout_width="@dimen/details_cta_icon_size"
+                            android:layout_height="@dimen/details_cta_icon_size"
+                            android:layout_marginTop="@dimen/details_cta_vert_padding"
+                            android:mediaRouteTypes="user" />
+
+                        <TextView
+                            android:layout_width="@dimen/details_cta_text_width"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/details_cta_vert_padding"
+                            android:layout_marginBottom="@dimen/details_cta_vert_padding"
+                            android:fontFamily="@font/sf_ui_text_regular"
+                            android:gravity="center"
+                            android:maxLines="1"
+                            android:text="Cast"
+                            android:textColor="@color/white"
+                            android:textSize="12sp" />
+
+                    </LinearLayout>
+
+                    <com.sdtechnocrat.ahoy.ui.DetailsCtaButton
+                        android:id="@+id/btn_share"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:iconDrawable="@drawable/ic_share"
+                        app:titleText="Share" />
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/cast_recycler"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                tools:itemCount="1"
+                tools:listitem="@layout/item_cast_grid_layout" />
+
+            <TextView
+                android:id="@+id/text_view_desc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:ellipsize="end"
+                android:fontFamily="@font/sf_ui_text_regular"
+                android:justificationMode="inter_word"
+                android:lineSpacingMultiplier="1.1"
+                android:maxLines="20"
+                android:textSize="16sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="12dp"
+                android:background="@color/color_secondary" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/text_view_similar"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/sf_ui_text_medium"
+                    android:text="Similar Movies"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/text_view_season"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@drawable/season_text_bg"
+                    android:clickable="true"
+                    android:drawablePadding="4dp"
+                    android:drawableTint="@color/white"
+                    android:focusable="true"
+                    android:fontFamily="@font/sf_ui_text_bold"
+                    android:paddingStart="12dp"
+                    android:paddingTop="8dp"
+                    android:paddingEnd="12dp"
+                    android:paddingBottom="8dp"
+                    android:text="Season 1"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:visibility="gone"
+                    app:drawableEndCompat="@drawable/ic_expand_more" />
+            </LinearLayout>
+
+            <FrameLayout
+                android:id="@+id/content_frame"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tab_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:visibility="gone"
+                app:tabBackground="@drawable/tab_background"
+                app:tabMinWidth="100dp"
+                app:tabTextColor="@color/white" />
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/pager"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:visibility="gone" />
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <include
+        layout="@layout/toolbar"
+        android:visibility="gone" />
+
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/progress_indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:indeterminate="true"
+        app:indicatorColor="@color/color_accent" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_watch_now"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_gravity="center_horizontal|bottom"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginBottom="20dp"
+        android:text="Watch Now"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:visibility="gone"
+        app:backgroundTint="@color/color_accent"
+        app:cornerRadius="28dp"
+        app:icon="@drawable/ic_play_arrow"
+        app:iconTint="@color/black" />
+
+    <fragment
+        android:id="@+id/castMiniController"
+        class="com.google.android.gms.cast.framework.media.widget.MiniControllerFragment"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:visibility="gone" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

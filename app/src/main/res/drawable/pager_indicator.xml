@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+<layer-list  xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <clip
+            android:clipOrientation="horizontal"
+            android:gravity="left|clip_horizontal|fill_vertical">
+            <shape>
+                <solid android:color="@color/white"/>
+                <corners android:radius="3dp"/>
+            </shape>
+
+        </clip>
+    </item>
+    <item>
+        <shape>
+            <solid android:color="#80FFFFFF"/>
+            <corners android:radius="3dp"/>
+        </shape>
+    </item>
+</layer-list>-->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_selected="true">
+        <shape>
+            <solid android:color="@color/white"/>
+            <corners android:radius="3dp"/>
+        </shape>
+    </item>
+    <item>
+        <shape>
+            <solid android:color="#80FFFFFF"/>
+            <corners android:radius="3dp"/>
+        </shape>
+    </item>
+</selector>
