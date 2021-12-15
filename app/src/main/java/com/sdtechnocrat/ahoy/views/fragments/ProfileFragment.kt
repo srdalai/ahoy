@@ -20,12 +20,13 @@ import com.sdtechnocrat.ahoy.utilities.SharedPref
 import com.sdtechnocrat.ahoy.utilities.Util.Companion.AUTH_TOKEN
 import com.sdtechnocrat.ahoy.utilities.Util.Companion.BASE_URL
 import com.sdtechnocrat.ahoy.utilities.Util.Companion.convertDpToPixel
-import com.sdtechnocrat.ahoy.views.AccountActivity
-import com.sdtechnocrat.ahoy.views.ContentDetailsActivity
-import com.sdtechnocrat.ahoy.views.ContentListingActivity
+import com.sdtechnocrat.ahoy.views.*
+import com.sdtechnocrat.ahoy.views.CommonActivity.Companion.ACTION_ACCOUNT
+import com.sdtechnocrat.ahoy.views.CommonActivity.Companion.ACTION_DOWNLOADS
+import com.sdtechnocrat.ahoy.views.CommonActivity.Companion.ACTION_SETTINGS
+import com.sdtechnocrat.ahoy.views.CommonActivity.Companion.ACTION_SUB
 import com.sdtechnocrat.ahoy.views.ContentListingActivity.Companion.ACTION_WATCH_HISTORY
 import com.sdtechnocrat.ahoy.views.ContentListingActivity.Companion.ACTION_WATCH_LIST
-import com.sdtechnocrat.ahoy.views.LoginActivity
 import okhttp3.*
 import org.json.JSONObject
 import java.io.IOException
@@ -173,8 +174,36 @@ class ProfileFragment : Fragment() {
                 }
                 startActivity(intent)
             }
+            "downloads" -> {
+                val intent = Intent(requireContext(), CommonActivity::class.java).apply {
+                    putExtra("action", ACTION_DOWNLOADS)
+                }
+                startActivity(intent)
+            }
             "account" -> {
-                val intent = Intent(requireContext(), AccountActivity::class.java)
+                val intent = Intent(requireContext(), CommonActivity::class.java).apply {
+                    putExtra("action", ACTION_ACCOUNT)
+                }
+                startActivity(intent)
+            }
+            "subscription" -> {
+                val intent = Intent(requireContext(), CommonActivity::class.java).apply {
+                    putExtra("action", ACTION_SUB)
+                }
+                startActivity(intent)
+            }
+            "app-settings" -> {
+                val intent = Intent(requireContext(), CommonActivity::class.java).apply {
+                    putExtra("action", ACTION_SETTINGS)
+                }
+                startActivity(intent)
+            }
+            "help" -> {
+                val intent = Intent(requireContext(), WebViewActivity::class.java)
+                startActivity(intent)
+            }
+            "privacy-terms" -> {
+                val intent = Intent(requireContext(), WebViewActivity::class.java)
                 startActivity(intent)
             }
         }
@@ -205,7 +234,6 @@ class ProfileFragment : Fragment() {
             }
 
         })
-
     }
 
     private fun handleFavoriteData(responseStr: String) {

@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".views.fragments.AppSettingsFragment">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="32dp"
+        android:fontFamily="@font/sf_ui_text_medium"
+        android:text="Video Playback"
+        android:textColor="@color/color_accent"
+        android:textSize="17sp" />
+
+    <RelativeLayout
+        android:id="@+id/data_usage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/ripple_bg"
+        android:clickable="true"
+        android:focusable="true"
+        android:minHeight="@dimen/settings_item_height_two"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp">
+
+        <ImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_centerVertical="true"
+            app:srcCompat="@drawable/signal_cellular_alt" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="52dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sf_ui_text_medium"
+                android:text="Mobile Data Usage"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tv_data_usage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sf_ui_text_regular"
+                android:text="Automatic"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/sf_ui_text_medium"
+        android:text="Notifications"
+        android:textColor="@color/color_accent"
+        android:textSize="17sp" />
+
+    <RelativeLayout
+        android:id="@+id/notifications"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/ripple_bg"
+        android:clickable="true"
+        android:focusable="true"
+        android:minHeight="@dimen/settings_item_height_two"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp">
+
+        <ImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_centerVertical="true"
+            app:srcCompat="@drawable/ic_notifications" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="52dp"
+            android:layout_marginEnd="52dp"
+            android:fontFamily="@font/sf_ui_text_medium"
+            android:text="Allow Notifications"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:id="@+id/switch_notifications"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            app:srcCompat="@drawable/toggle_on"
+            app:tint="@color/color_accent" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/sf_ui_text_medium"
+        android:text="Downloads"
+        android:textColor="@color/color_accent"
+        android:textSize="17sp" />
+
+    <RelativeLayout
+        android:id="@+id/wifi_only"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/ripple_bg"
+        android:clickable="true"
+        android:focusable="true"
+        android:minHeight="@dimen/settings_item_height_two"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp">
+
+        <ImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_centerVertical="true"
+            app:srcCompat="@drawable/wifi" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="52dp"
+            android:layout_marginEnd="52dp"
+            android:fontFamily="@font/sf_ui_text_medium"
+            android:text="Wi-Fi Only"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:id="@+id/switch_wifi_only"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            app:srcCompat="@drawable/toggle_off" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/smart_download"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/ripple_bg"
+        android:clickable="true"
+        android:focusable="true"
+        android:minHeight="@dimen/settings_item_height_two"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp">
+
+        <ImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_centerVertical="true"
+            app:srcCompat="@drawable/download_for_offline" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="52dp"
+            android:layout_marginEnd="52dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sf_ui_text_medium"
+                android:text="Smart Download"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sf_ui_text_regular"
+                android:text="@string/smart_download_text"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/switch_smart_download"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            app:srcCompat="@drawable/toggle_on"
+            app:tint="@color/color_accent" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/download_quality"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/ripple_bg"
+        android:clickable="true"
+        android:focusable="true"
+        android:minHeight="@dimen/settings_item_height_two"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp">
+
+        <ImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_centerVertical="true"
+            app:srcCompat="@drawable/high_quality" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="52dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sf_ui_text_medium"
+                android:text="Download Quality"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tv_download_quality"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sf_ui_text_regular"
+                android:text="High Quality"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/delete_all"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/ripple_bg"
+        android:clickable="true"
+        android:focusable="true"
+        android:minHeight="@dimen/settings_item_height_two"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp">
+
+        <ImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_centerVertical="true"
+            app:srcCompat="@drawable/delete_outline" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="52dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sf_ui_text_medium"
+                android:text="Delete All Downloads"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tv_delete_all"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sf_ui_text_regular"
+                android:text="Consuming 4.20 GB on Device"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</LinearLayout>

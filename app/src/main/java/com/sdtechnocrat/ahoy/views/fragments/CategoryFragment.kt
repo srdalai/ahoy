@@ -2,12 +2,15 @@ package com.sdtechnocrat.ahoy.views.fragments
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.sdtechnocrat.ahoy.adapters.CategoryAdapter
 import com.sdtechnocrat.ahoy.adapters.ContentGridAdapter
 import com.sdtechnocrat.ahoy.api.OkHttpBuilder.getOkHttpClient
@@ -26,13 +29,19 @@ class CategoryFragment : Fragment() {
     private var _binding : FragmentCategoryBinding? = null
     private val binding get() = _binding!!
 
-    val categoryList = mutableListOf<CategoryItem>()
+    private val categoryList = mutableListOf<CategoryItem>()
     lateinit var categoryAdapter: CategoryAdapter
 
     val contentList = mutableListOf<ContentItem>()
-    lateinit var caontentAdapter: ContentGridAdapter
+    lateinit var contentAdapter: ContentGridAdapter
 
     lateinit var permalink: String
+
+    private val limit = 8;
+    private var offset = 1;
+    var totalContentCount = 0
+    var isLoading = false
+    var isLastPage = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -66,14 +75,14 @@ class CategoryFragment : Fragment() {
                 permalink = categoryItem.permalink
                 val size = contentList.size
                 contentList.clear()
-                caontentAdapter.notifyItemRangeRemoved(0, size)
+                contentAdapter.notifyItemRangeRemoved(0, size)
                 getContentList()
             }
         })
         binding.categoryRecycler.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         binding.categoryRecycler.adapter = categoryAdapter
 
-        caontentAdapter = ContentGridAdapter(requireContext(), contentList, object :
+        contentAdapter = ContentGridAdapter(requireContext(), contentList, object :
             ContentGridAdapter.OnItemClickListener {
             override fun onItemClicked(contentItem: ContentItem) {
                 val intent = Intent(requireContext(), ContentDetailsActivity::class.java).apply {
@@ -84,8 +93,35 @@ class CategoryFragment : Fragment() {
                 startActivity(intent)
             }
         })
-        binding.contentRecycler.layoutManager = GridLayoutManager(requireContext(), 2)
-        binding.contentRecycler.adapter = caontentAdapter
+        val layoutManager = GridLayoutManager(requireContext(), 2)
+        binding.contentRecycler.layoutManager = layoutManager
+        binding.contentRecycler.adapter = contentAdapter
+        binding.contentRecycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                val visibleItemCount: Int = layoutManager.childCount
+                val totalItemCount: Int = layoutManager.itemCount
+                val firstVisibleItemPosition: Int = layoutManager.findFirstVisibleItemPosition()
+                /*Log.d("TAG",
+                    "visibleItemCount -> $visibleItemCount, totalItemCount -> $totalItemCount, firstVisibleItemPosition -> $firstVisibleItemPosition"
+                )*/
+
+                if (!isLoading && !isLastPage) {
+                    if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount
+                        && firstVisibleItemPosition >= 0
+                        && totalItemCount < totalContentCount) {
+                        //loadMoreItems();
+                    }
+                }
+                isLastPage = totalItemCount == totalContentCount
+            }
+        })
+    }
+
+    private fun loadMoreItems() {
+        Toast.makeText(requireContext(), "Getting more items", Toast.LENGTH_SHORT).show()
+        offset++
+        getContentList()
     }
 
     private fun getCategories() {
@@ -112,7 +148,6 @@ class CategoryFragment : Fragment() {
     }
 
     private fun handleCategoryResponse(responseStr: String) {
-
         val responseObj = JSONObject(responseStr)
         val code = responseObj.optInt("code", 0)
         if (code == 200) {
@@ -134,17 +169,19 @@ class CategoryFragment : Fragment() {
     }
 
     private fun getContentList() {
+        isLoading = true
         binding.progressIndicator.visibility = View.VISIBLE
         val urlBuilder = HttpUrl.parse(BASE_URL.plus("getContentList"))?.newBuilder()
         urlBuilder?.addQueryParameter("authToken", AUTH_TOKEN)
         urlBuilder?.addQueryParameter("permalink", permalink)
-        urlBuilder?.addQueryParameter("limit", "50")
-        urlBuilder?.addQueryParameter("offset", "1")
+        urlBuilder?.addQueryParameter("limit", limit.toString())
+        urlBuilder?.addQueryParameter("offset", offset.toString())
         val url = urlBuilder?.build().toString()
         val request = Request.Builder().url(url).build()
 
         getOkHttpClient().newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
+                isLoading = false
                 TODO("Not yet implemented")
             }
 
@@ -164,7 +201,9 @@ class CategoryFragment : Fragment() {
         val responseObj = JSONObject(responseStr)
         val status = responseObj.optInt("status", 0)
         val message = responseObj.optString("msg", "Error")
+        val _contentList = mutableListOf<ContentItem>()
         if (status == 200) {
+            totalContentCount = responseObj.optString("item_count", "0").toInt()
             val movieArray = responseObj.getJSONArray("movieList")
             if (movieArray.length() > 0) {
                 for (i in 0 until movieArray.length()) {
@@ -172,13 +211,18 @@ class CategoryFragment : Fragment() {
                     val permalink = movieObj.optString("permalink", "")
                     val title = movieObj.optString("list_name", "")
                     val poster = movieObj.optString("posterForTv", "")
-                    contentList.add(ContentItem(permalink, title, poster))
+                    _contentList.add(ContentItem(permalink, title, poster))
                 }
-
-                caontentAdapter.notifyItemInserted(0)
-                binding.contentRecycler.visibility = View.VISIBLE
             }
         }
+
+        if (_contentList.size > 0) {
+            val size = contentList.size
+            contentList.addAll(_contentList)
+            contentAdapter.notifyItemInserted(size)
+            binding.contentRecycler.visibility = View.VISIBLE
+        }
+        isLoading = false
     }
 
     override fun onDestroyView() {

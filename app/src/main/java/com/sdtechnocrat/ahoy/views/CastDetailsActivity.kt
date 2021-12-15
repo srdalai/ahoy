@@ -20,7 +20,7 @@ class CastDetailsActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityCastDetailsBinding
 
-    lateinit var cast_permalink : String
+    private lateinit var cast_permalink : String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

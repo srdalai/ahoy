@@ -7,9 +7,12 @@ class Util {
 
     companion object {
 
-        const val BASE_URL = "BASE_URL"
-        const val AUTH_TOKEN = "AUTH_TOKEN"
+        const val BASE_URL = "https://api.muvi.com/rest/"
+        const val AUTH_TOKEN = "92b9a7907748d038f3277feafcf07506"
         const val SEARCH_HISTORY_LIMIT = 5
+
+        const val getStudioPlanLists = "getStudioPlanLists"
+        const val MyPlans = "MyPlans"
 
         @JvmStatic
         fun convertDpToPixel(ctx: Context, dp: Int): Int {

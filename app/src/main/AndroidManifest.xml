@@ -12,7 +12,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Ahoy">
         <activity
-            android:name=".views.AccountActivity"
+            android:name=".views.PlanSelectionActivity"
+            android:exported="false">
+        </activity>
+        <activity
+            android:name=".views.CreateProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".views.WebViewActivity"
+            android:exported="false" />
+        <activity
+            android:name=".views.CommonActivity"
             android:exported="false" />
         <activity
             android:name=".views.PlayerActivity"

@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="12dp"
+    android:id="@+id/parent_frame"
+    android:background="@drawable/plan_item_bg">
+
+    <LinearLayout
+        android:layout_width="160dp"
+        android:layout_height="match_parent"
+        android:layout_margin="20dp"
+        android:duplicateParentState="true"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_plan_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:duplicateParentState="true"
+            android:fontFamily="@font/sf_ui_text_bold"
+            android:text="Plan Name"
+            android:textColor="@color/plan_item_color"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:duplicateParentState="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/icon_hd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:duplicateParentState="true"
+                app:srcCompat="@drawable/ic_done"
+                app:tint="@color/plan_item_color" />
+
+            <TextView
+                android:id="@+id/tv_hd"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_weight="1"
+                android:textColor="@color/plan_item_color"
+                android:duplicateParentState="true"
+                android:fontFamily="@font/sf_ui_text_regular"
+                android:text="HD" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:duplicateParentState="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/icon_ultra_hd"
+                app:tint="@color/plan_item_color"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:duplicateParentState="true"
+                app:srcCompat="@drawable/ic_done" />
+
+            <TextView
+                android:id="@+id/tv_ultra_hd"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_weight="1"
+                android:textColor="@color/plan_item_color"
+                android:duplicateParentState="true"
+                android:fontFamily="@font/sf_ui_text_regular"
+                android:text="Ultra HD" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:duplicateParentState="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/icon_laptop_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:tint="@color/plan_item_color"
+                android:duplicateParentState="true"
+                app:srcCompat="@drawable/ic_done" />
+
+            <TextView
+                android:id="@+id/tv_laptop_tv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_weight="1"
+                android:textColor="@color/plan_item_color"
+                android:duplicateParentState="true"
+                android:fontFamily="@font/sf_ui_text_regular"
+                android:text="Laptop and TV" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:duplicateParentState="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/icon_mobile_tablet"
+                android:layout_width="wrap_content"
+                app:tint="@color/plan_item_color"
+                android:layout_height="wrap_content"
+                android:duplicateParentState="true"
+                app:srcCompat="@drawable/ic_done" />
+
+            <TextView
+                android:id="@+id/tv_mobile_tablet"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:textColor="@color/plan_item_color"
+                android:layout_weight="1"
+                android:duplicateParentState="true"
+                android:fontFamily="@font/sf_ui_text_regular"
+                android:text="Mobile Phone and Tablet" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:duplicateParentState="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_screen_num"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:duplicateParentState="true"
+                android:fontFamily="@font/sf_ui_text_bold"
+                android:gravity="center"
+                android:textColor="@color/plan_item_color"
+                android:text="8"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tv_screens"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_weight="1"
+                android:textColor="@color/plan_item_color"
+                android:duplicateParentState="true"
+                android:fontFamily="@font/sf_ui_text_regular"
+                android:text="Number of Screens" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:duplicateParentState="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/icon_shows"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:tint="@color/plan_item_color"
+                android:duplicateParentState="true"
+                app:srcCompat="@drawable/ic_done" />
+
+            <TextView
+                android:id="@+id/tv_shows"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_weight="1"
+                android:textColor="@color/plan_item_color"
+                android:duplicateParentState="true"
+                android:fontFamily="@font/sf_ui_text_regular"
+                android:text="Unlimited Movies and TV Shows" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:duplicateParentState="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/icon_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:duplicateParentState="true"
+                app:tint="@color/plan_item_color"
+                app:srcCompat="@drawable/ic_done" />
+
+            <TextView
+                android:id="@+id/tv_cancel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_weight="1"
+                android:textColor="@color/plan_item_color"
+                android:duplicateParentState="true"
+                android:fontFamily="@font/sf_ui_text_regular"
+                android:text="Cancel anytime" />
+        </LinearLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_subscribe"
+            style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="12dp"
+            android:duplicateParentState="true"
+            android:text="Subscribe Now"
+            app:backgroundTint="@color/plan_item_button_color"
+            android:textColor="@color/plan_item_button_text_color"
+            android:textAllCaps="false"
+            app:cornerRadius="28dp" />
+
+        <TextView
+            android:id="@+id/tv_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:duplicateParentState="true"
+            android:fontFamily="@font/sf_ui_text_medium"
+            android:gravity="center"
+            android:text="$1.99/Month"
+            android:textColor="@color/plan_item_color"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+</FrameLayout>

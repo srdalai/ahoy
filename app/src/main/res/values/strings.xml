@@ -3,4 +3,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="cast_receiver_app_id">DBBFE0E4</string>
+    <string name="smart_download_text">Complete videos will be deleted and replaced with the next videos only on Wi-Fi.</string>
+    <string name="cancel_text">Cancel within 7 days for a full refund, no ads and no extra fees.</string>
+    <string name="terms_text">By continuing, I agree to the <a href="https://google.co.in">terms and conditions</a> and <a href="https://google.co.in">Privacy Policy</a> of Ahoy.</string>
 </resources>

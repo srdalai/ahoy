@@ -15,4 +15,6 @@
     <color name="cta_item_activated">#FFFFFF</color>
     <color name="cta_item_de_activated">#A8A8A8</color>
     <color name="semi_transparent">#6A000000</color>
+
+    <color name="default_text_color">#b8b8b8</color>
 </resources>
