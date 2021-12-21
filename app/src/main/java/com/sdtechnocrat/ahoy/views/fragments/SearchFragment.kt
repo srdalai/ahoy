@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Rect
 import android.os.Bundle
-import android.util.Log
 import android.view.KeyEvent
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -27,7 +26,7 @@ import com.sdtechnocrat.ahoy.room.HistoryDbHelperImpl
 import com.sdtechnocrat.ahoy.utilities.Util
 import com.sdtechnocrat.ahoy.utilities.Util.Companion.AUTH_TOKEN
 import com.sdtechnocrat.ahoy.utilities.Util.Companion.BASE_URL
-import com.sdtechnocrat.ahoy.utilities.ViewModelFactory
+import com.sdtechnocrat.ahoy.viewmodels.ViewModelFactory
 import com.sdtechnocrat.ahoy.viewmodels.SearchFragmentViewModel
 import com.sdtechnocrat.ahoy.views.ContentDetailsActivity
 import com.sdtechnocrat.ahoy.views.MainActivity

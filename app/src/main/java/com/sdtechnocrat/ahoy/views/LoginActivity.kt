@@ -1,6 +1,7 @@
 package com.sdtechnocrat.ahoy.views
 
 import android.content.Intent
+import android.graphics.Paint
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -38,8 +39,12 @@ class LoginActivity : AppCompatActivity() {
             logIn()
         }
 
-        binding.edittextEmail.setText("freeuser@yahoo.com")
-        binding.edittextPassword.setText("freeuser123")
+        binding.tvSignUp.paintFlags = binding.tvSignUp.paintFlags or Paint.UNDERLINE_TEXT_FLAG
+
+        /*binding.edittextEmail.setText("freeuser@yahoo.com")
+        binding.edittextPassword.setText("freeuser123")*/
+        binding.edittextEmail.setText("tvtest5@yopmail.com")
+        binding.edittextPassword.setText("123456")
     }
 
     private fun logIn() {

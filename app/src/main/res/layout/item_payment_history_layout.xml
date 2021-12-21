@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/payment_item_bg"
+    android:padding="12dp">
+
+    <TextView
+        android:id="@+id/tv_txn_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_marginEnd="12dp"
+        android:textSize="16sp"
+        android:fontFamily="@font/sf_ui_text_bold"
+        android:textStyle="bold"
+        android:layout_toStartOf="@id/tv_txn_amount"
+        android:text="28 June 2020" />
+
+    <TextView
+        android:id="@+id/tv_txn_amount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:textStyle="bold"
+        android:fontFamily="@font/sf_ui_text_bold"
+        android:textSize="16sp"
+        android:text="$1.99" />
+
+    <TextView
+        android:id="@+id/tv_txn_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:fontFamily="@font/sf_ui_text_regular"
+        android:layout_below="@id/tv_txn_date"
+        android:text="Ahoy Mobile Plan" />
+
+    <TextView
+        android:id="@+id/tv_other_info"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="2dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/sf_ui_text_regular"
+        android:layout_below="@id/tv_txn_name"
+        android:text="28 June - 27 July" />
+
+    <TextView
+        android:id="@+id/tv_txn_method"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="2dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/sf_ui_text_bold"
+        android:layout_below="@id/tv_other_info"
+        android:text="Card" />
+
+</RelativeLayout>

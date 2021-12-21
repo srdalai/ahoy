@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/parent_frame"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_margin="12dp"
-    android:id="@+id/parent_frame"
     android:background="@drawable/plan_item_bg">
 
     <LinearLayout
@@ -47,10 +47,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:layout_weight="1"
-                android:textColor="@color/plan_item_color"
                 android:duplicateParentState="true"
                 android:fontFamily="@font/sf_ui_text_regular"
-                android:text="HD" />
+                android:text="HD"
+                android:textColor="@color/plan_item_color" />
         </LinearLayout>
 
         <LinearLayout
@@ -62,11 +62,11 @@
 
             <ImageView
                 android:id="@+id/icon_ultra_hd"
-                app:tint="@color/plan_item_color"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:duplicateParentState="true"
-                app:srcCompat="@drawable/ic_done" />
+                app:srcCompat="@drawable/ic_done"
+                app:tint="@color/plan_item_color" />
 
             <TextView
                 android:id="@+id/tv_ultra_hd"
@@ -74,10 +74,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:layout_weight="1"
-                android:textColor="@color/plan_item_color"
                 android:duplicateParentState="true"
                 android:fontFamily="@font/sf_ui_text_regular"
-                android:text="Ultra HD" />
+                android:text="Ultra HD"
+                android:textColor="@color/plan_item_color" />
         </LinearLayout>
 
         <LinearLayout
@@ -91,9 +91,9 @@
                 android:id="@+id/icon_laptop_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:tint="@color/plan_item_color"
                 android:duplicateParentState="true"
-                app:srcCompat="@drawable/ic_done" />
+                app:srcCompat="@drawable/ic_done"
+                app:tint="@color/plan_item_color" />
 
             <TextView
                 android:id="@+id/tv_laptop_tv"
@@ -101,10 +101,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:layout_weight="1"
-                android:textColor="@color/plan_item_color"
                 android:duplicateParentState="true"
                 android:fontFamily="@font/sf_ui_text_regular"
-                android:text="Laptop and TV" />
+                android:text="Laptop and TV"
+                android:textColor="@color/plan_item_color" />
         </LinearLayout>
 
         <LinearLayout
@@ -117,21 +117,21 @@
             <ImageView
                 android:id="@+id/icon_mobile_tablet"
                 android:layout_width="wrap_content"
-                app:tint="@color/plan_item_color"
                 android:layout_height="wrap_content"
                 android:duplicateParentState="true"
-                app:srcCompat="@drawable/ic_done" />
+                app:srcCompat="@drawable/ic_done"
+                app:tint="@color/plan_item_color" />
 
             <TextView
                 android:id="@+id/tv_mobile_tablet"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
-                android:textColor="@color/plan_item_color"
                 android:layout_weight="1"
                 android:duplicateParentState="true"
                 android:fontFamily="@font/sf_ui_text_regular"
-                android:text="Mobile Phone and Tablet" />
+                android:text="Mobile Phone and Tablet"
+                android:textColor="@color/plan_item_color" />
         </LinearLayout>
 
         <LinearLayout
@@ -148,8 +148,8 @@
                 android:duplicateParentState="true"
                 android:fontFamily="@font/sf_ui_text_bold"
                 android:gravity="center"
-                android:textColor="@color/plan_item_color"
                 android:text="8"
+                android:textColor="@color/plan_item_color"
                 android:textSize="18sp" />
 
             <TextView
@@ -158,10 +158,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:layout_weight="1"
-                android:textColor="@color/plan_item_color"
                 android:duplicateParentState="true"
                 android:fontFamily="@font/sf_ui_text_regular"
-                android:text="Number of Screens" />
+                android:text="Number of Screens"
+                android:textColor="@color/plan_item_color" />
         </LinearLayout>
 
         <LinearLayout
@@ -175,9 +175,9 @@
                 android:id="@+id/icon_shows"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:tint="@color/plan_item_color"
                 android:duplicateParentState="true"
-                app:srcCompat="@drawable/ic_done" />
+                app:srcCompat="@drawable/ic_done"
+                app:tint="@color/plan_item_color" />
 
             <TextView
                 android:id="@+id/tv_shows"
@@ -185,10 +185,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:layout_weight="1"
-                android:textColor="@color/plan_item_color"
                 android:duplicateParentState="true"
                 android:fontFamily="@font/sf_ui_text_regular"
-                android:text="Unlimited Movies and TV Shows" />
+                android:text="Unlimited Movies and TV Shows"
+                android:textColor="@color/plan_item_color" />
         </LinearLayout>
 
         <LinearLayout
@@ -203,8 +203,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:duplicateParentState="true"
-                app:tint="@color/plan_item_color"
-                app:srcCompat="@drawable/ic_done" />
+                app:srcCompat="@drawable/ic_done"
+                app:tint="@color/plan_item_color" />
 
             <TextView
                 android:id="@+id/tv_cancel"
@@ -212,10 +212,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:layout_weight="1"
-                android:textColor="@color/plan_item_color"
                 android:duplicateParentState="true"
                 android:fontFamily="@font/sf_ui_text_regular"
-                android:text="Cancel anytime" />
+                android:text="Cancel anytime"
+                android:textColor="@color/plan_item_color" />
         </LinearLayout>
 
         <com.google.android.material.button.MaterialButton
@@ -227,10 +227,24 @@
             android:layout_marginBottom="12dp"
             android:duplicateParentState="true"
             android:text="Subscribe Now"
-            app:backgroundTint="@color/plan_item_button_color"
-            android:textColor="@color/plan_item_button_text_color"
             android:textAllCaps="false"
+            android:textColor="@color/plan_item_button_text_color"
+            app:backgroundTint="@color/plan_item_button_color"
             app:cornerRadius="28dp" />
+
+        <TextView
+            android:id="@+id/tv_current"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="12dp"
+            android:duplicateParentState="true"
+            android:fontFamily="@font/sf_ui_text_bold"
+            android:gravity="center"
+            android:text="Current Plan"
+            android:textColor="@color/plan_item_color"
+            android:textSize="16sp"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/tv_price"

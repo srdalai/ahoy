@@ -23,10 +23,38 @@ class SharedPref private constructor() {
             return sharedPref
         }
 
+        private const val NOTIFICATIONS_STATUS = "NOTIFICATIONS_STATUS"
+        private const val WIFI_ONLY_STATUS = "WIFI_ONLY_STATUS"
+        private const val SMART_DOWNLOAD_STATUS = "SMART_DOWNLOAD_STATUS"
+
         private const val USER_ID = "USER_ID"
         private const val USER_EMAIL = "USER_EMAIL"
         private const val USER_NAME = "USER_NAME"
         private const val USER_IMAGE = "USER_IMAGE"
+    }
+
+    fun setNotificationStatus(status: Boolean) {
+        editor.putBoolean(NOTIFICATIONS_STATUS, status).apply()
+    }
+
+    fun getNotificationStatus() : Boolean {
+        return sharedPreferences.getBoolean(NOTIFICATIONS_STATUS, true)
+    }
+
+    fun setWifiOnlyStatus(status: Boolean) {
+        editor.putBoolean(WIFI_ONLY_STATUS, status).apply()
+    }
+
+    fun getWifiOnlyStatus() : Boolean {
+        return sharedPreferences.getBoolean(WIFI_ONLY_STATUS, false)
+    }
+
+    fun setSmartDownloadStatus(status: Boolean) {
+        editor.putBoolean(SMART_DOWNLOAD_STATUS, status).apply()
+    }
+
+    fun getSmartDownloadStatus() : Boolean {
+        return sharedPreferences.getBoolean(SMART_DOWNLOAD_STATUS, false)
     }
 
     fun setUserId(userId: String) {

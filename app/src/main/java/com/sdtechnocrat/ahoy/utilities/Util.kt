@@ -13,6 +13,7 @@ class Util {
 
         const val getStudioPlanLists = "getStudioPlanLists"
         const val MyPlans = "MyPlans"
+        const val PurchaseHistory = "PurchaseHistory"
 
         @JvmStatic
         fun convertDpToPixel(ctx: Context, dp: Int): Int {

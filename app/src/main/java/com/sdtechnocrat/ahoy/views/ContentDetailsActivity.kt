@@ -1,5 +1,6 @@
 package com.sdtechnocrat.ahoy.views
 
+import android.content.Context
 import android.content.Intent
 import android.graphics.Rect
 import android.net.Uri
@@ -11,13 +12,14 @@ import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import androidx.mediarouter.app.MediaRouteButton
@@ -33,8 +35,11 @@ import com.sdtechnocrat.ahoy.R
 import com.sdtechnocrat.ahoy.adapters.CastAdapter
 import com.sdtechnocrat.ahoy.api.OkHttpBuilder.getOkHttpClient
 import com.sdtechnocrat.ahoy.data.CastDetailItem
+import com.sdtechnocrat.ahoy.data.DownloadItem
 import com.sdtechnocrat.ahoy.data.SeasonItem
 import com.sdtechnocrat.ahoy.databinding.ActivityContentDetailsBinding
+import com.sdtechnocrat.ahoy.room.DownloadDao
+import com.sdtechnocrat.ahoy.room.DownloadDatabase
 import com.sdtechnocrat.ahoy.utilities.SharedPref
 import com.sdtechnocrat.ahoy.utilities.Util
 import com.sdtechnocrat.ahoy.utilities.Util.Companion.AUTH_TOKEN
@@ -43,21 +48,30 @@ import com.sdtechnocrat.ahoy.utilities.Util.Companion.formatVideoDuration
 import com.sdtechnocrat.ahoy.views.fragments.EpisodesFragment
 import com.sdtechnocrat.ahoy.views.fragments.SeasonFragment
 import com.sdtechnocrat.ahoy.views.fragments.SimilarFragment
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import okhttp3.*
 import org.json.JSONObject
+import java.io.File
 import java.io.IOException
+import java.net.HttpURLConnection
 import java.util.*
-import kotlin.collections.ArrayList
 
 
 class ContentDetailsActivity : AppCompatActivity() {
 
-    private val TAG = "ContentDetailsActivity"
+    companion object {
+        private const val TAG = "ContentDetailsActivity"
+        private const val BUFFER_LENGTH_BYTES = 1024 * 8
+        private const val HTTP_TIMEOUT = 30
+    }
 
     private lateinit var binding: ActivityContentDetailsBinding
 
     private lateinit var sharedPref: SharedPref
     private lateinit var castContext : CastContext
+    lateinit var downloadDatabase: DownloadDatabase
+    lateinit var downloadDao : DownloadDao
 
     lateinit var userId : String
 
@@ -72,16 +86,20 @@ class ContentDetailsActivity : AppCompatActivity() {
     private lateinit var movieUniqueId : String
     private lateinit var streamUniqueId : String
     private lateinit var censorRating : String
-    private lateinit var videoUrlForCast : String
+    private var isConverted : Int = 0
     private var videoDurationLong : Long = 0
+
+    private lateinit var videoUrlForCast : String
+    private lateinit var videoUrlForDownload : String
 
     private var isFavorite : Int = 0
     var selectedSeasonPos = 0
+    private var isDownloading = false
+    private var isDownloaded = false
 
     private val metaDataList : MutableList<String> = mutableListOf()
     private val castList : MutableList<CastDetailItem> = mutableListOf()
     private val seasonList : ArrayList<SeasonItem> = arrayListOf()
-
 
     private lateinit var castAdapter : CastAdapter
 
@@ -95,6 +113,8 @@ class ContentDetailsActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
+        downloadDatabase = DownloadDatabase.getInstance(this@ContentDetailsActivity)
+        downloadDao = downloadDatabase.downloadDao()
         sharedPref = SharedPref.getInstance(this)
         userId = sharedPref.getUserId().toString()
 
@@ -135,14 +155,21 @@ class ContentDetailsActivity : AppCompatActivity() {
     }
 
     private fun setUpListeners() {
-        binding.btnShare.setOnClickListener {
-            val sendIntent = Intent().apply {
-                action = Intent.ACTION_SEND
-                putExtra(Intent.EXTRA_TEXT, "I am watching \"$contentTitle\"on Ahoy")
-                type = "text/plain"
+        binding.btnTrailer.setOnClickListener {
+
+        }
+
+        binding.btnDownload.setOnClickListener {
+            if (!isDownloading) {
+                if (isDownloaded) {
+                    val intent = Intent(this, CommonActivity::class.java).apply {
+                        putExtra("action", CommonActivity.ACTION_DOWNLOADS)
+                    }
+                    startActivity(intent)
+                } else {
+                    downloadContent()
+                }
             }
-            val shareIntent = Intent.createChooser(sendIntent, null)
-            startActivity(shareIntent)
         }
 
         binding.btnWatchlist.setOnClickListener {
@@ -151,6 +178,16 @@ class ContentDetailsActivity : AppCompatActivity() {
             } else {
                 addToFavorite()
             }
+        }
+
+        binding.btnShare.setOnClickListener {
+            val sendIntent = Intent().apply {
+                action = Intent.ACTION_SEND
+                putExtra(Intent.EXTRA_TEXT, "I am watching \"$contentTitle\"on Ahoy")
+                type = "text/plain"
+            }
+            val shareIntent = Intent.createChooser(sendIntent, null)
+            startActivity(shareIntent)
         }
 
         binding.btnWatchNow.setOnClickListener {
@@ -172,6 +209,104 @@ class ContentDetailsActivity : AppCompatActivity() {
                 putParcelableArrayList("seasons", seasonList)
             }
             seasonFragment.show(supportFragmentManager, SeasonFragment.TAG)
+        }
+    }
+
+    private fun downloadContent() {
+        isDownloading = true
+        binding.btnDownload.setText("Downloading")
+        binding.btnDownload.setIconDrawable(ContextCompat.getDrawable(this@ContentDetailsActivity, R.drawable.downloading))
+        GlobalScope.launch {
+            val downloadItem = DownloadItem()
+            downloadItem.streamId = streamUniqueId
+            downloadItem.movieId = movieUniqueId
+            downloadItem.contentName = contentTitle
+            downloadItem.contentPoster = contentPoster
+            downloadItem.videoUrl = videoUrlForDownload
+            downloadItem.updateTime = System.currentTimeMillis()
+            downloadDao.insert(downloadItem)
+            Log.d(TAG, "Inserted to Downloads DB")
+
+            val uri = downloadFile()
+            val fileSize: String
+            val file = File(uri.toString())
+            val fileSizeKb = (file.length() / 1024).toString().toInt()
+            fileSize = if (fileSizeKb > 1024) {
+                val fileSizeMb = (fileSizeKb / 1024).toString().toInt()
+                "$fileSizeMb MB"
+            } else {
+                "$fileSizeKb KB"
+            }
+            /*fileSize = getStringSizeLengthFile(fileSizeKb)*/
+
+            downloadItem.fileUri = uri.toString()
+            downloadItem.fileSize = fileSize
+            downloadItem.downloadedSize = fileSize
+            downloadDao.insert(downloadItem)
+            runOnUiThread {
+                isDownloading = false
+                isDownloaded = true
+                Toast.makeText(this@ContentDetailsActivity, "Download Completed", Toast.LENGTH_LONG).show()
+                binding.btnDownload.setText("Downloaded")
+                binding.btnDownload.setIconDrawable(ContextCompat.getDrawable(this@ContentDetailsActivity, R.drawable.download_done))
+            }
+        }
+    }
+
+    /*fun getStringSizeLengthFile(size: Long): String {
+        val df = DecimalFormat("0.00")
+        val sizeKb = 1024.0f
+        val sizeMb = sizeKb * sizeKb
+        val sizeGb = sizeMb * sizeKb
+        val sizeTerra = sizeGb * sizeKb
+        if (size < sizeMb) return df.format(size / sizeKb)
+            .toString() + " Kb" else if (size < sizeGb) return df.format(size / sizeMb)
+            .toString() + " Mb" else if (size < sizeTerra) return df.format(size / sizeGb)
+            .toString() + " Gb"
+        return ""
+    }*/
+
+    private fun downloadFile(): String? {
+        val okHttpClient: OkHttpClient = OkHttpClient.Builder().build()
+        try {
+            val fileName = streamUniqueId.plus("_").plus(movieUniqueId).plus("_video.mp4")
+            var targetFile = File(getDir("downloads", Context.MODE_PRIVATE), fileName)
+            if (targetFile.exists()) {
+                targetFile.delete()
+                targetFile = File(getDir("downloads", Context.MODE_PRIVATE), fileName)
+            }
+
+            val request = Request.Builder().url(videoUrlForDownload).build()
+            val response = okHttpClient.newCall(request).execute()
+            val body = response.body()
+            val responseCode = response.code()
+            if (responseCode >= HttpURLConnection.HTTP_OK && responseCode < HttpURLConnection.HTTP_MULT_CHOICE && body != null) {
+                //Read the file
+                val length = body.contentLength()
+                body.byteStream().apply {
+                    targetFile.outputStream().use { fileOut ->
+                        run {
+                            var bytesCopied = 0
+                            val buffer = ByteArray(BUFFER_LENGTH_BYTES)
+                            var bytes = read(buffer)
+                            while (bytes >= 0) {
+                                fileOut.write(buffer, 0, bytes)
+                                bytesCopied += bytes
+                                bytes = read(buffer)
+                            }
+                        }
+
+                    }
+                }
+                Log.d(TAG, "Download Completed. Path ->\n" + targetFile.absoluteFile)
+                return targetFile.absoluteFile.path
+            } else {
+                //Report Error
+                return null
+            }
+        } catch (e: Exception) {
+            Log.e(TAG, "Exception -> $e")
+            return null
         }
     }
 
@@ -267,7 +402,22 @@ class ContentDetailsActivity : AppCompatActivity() {
                 contentTitle = movie.optString("name", "")
                 contentDesc = movie.optString("story", "")
                 censorRating = movie.optString("censor_rating", "")
-                videoUrlForCast = movie.optString("movieUrlForTv", "")
+                isConverted = movie.optString("is_converted", "0").toInt()
+                if (isConverted == 1 && (contentTypesId == "1" || contentTypesId == "2")) {
+
+                    videoUrlForCast = movie.optString("movieUrlForTv", "")
+                    val resolutionArray = movie.getJSONArray("resolution")
+                    for (i in 0 until resolutionArray.length()) {
+                        if (i == resolutionArray.length() - 1) {
+                            val resolutionObj = resolutionArray.getJSONObject(i)
+                            videoUrlForDownload = resolutionObj.optString("url", "")
+                        }
+                    }
+                    getDownloadById()
+                } else {
+                    binding.btnDownload.setButtonActive(false)
+                }
+
                 val genre = movie.optString("genre", "")
                 val ratingStr = jsonObject.optInt("rating", 0)
                 genreText = processGenre(genre)
@@ -322,9 +472,9 @@ class ContentDetailsActivity : AppCompatActivity() {
 
                 isFavorite = movie.optInt("is_favorite", 0)
                 if (isFavorite == 1) {
-                    binding.btnWatchlist.setIconDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_done, null))
+                    binding.btnWatchlist.setIconDrawable(ContextCompat.getDrawable(this, R.drawable.ic_done))
                 } else {
-                    binding.btnWatchlist.setIconDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_add, null))
+                    binding.btnWatchlist.setIconDrawable(ContextCompat.getDrawable(this, R.drawable.ic_add))
                 }
 
                 val isConverted = movie.optString("is_converted", "0")
@@ -405,8 +555,11 @@ class ContentDetailsActivity : AppCompatActivity() {
         castAdapter.notifyItemInserted(0)
 
         binding.actionsLinear.visibility = View.VISIBLE
-        binding.btnDownload.setButtonActive(false)
+
         binding.btnWatchlist.setButtonActive(userId.isNotEmpty())
+        /*val rotatingRefresh: Animation = AnimationUtils.loadAnimation(this, R.anim.rotating_refresh)
+        rotatingRefresh.repeatCount = Animation.INFINITE
+        binding.btnWatchlist.startAnimation(rotatingRefresh)*/
     }
 
     private fun addToFavorite() {
@@ -477,6 +630,17 @@ class ContentDetailsActivity : AppCompatActivity() {
                 }
             }
         })
+    }
+
+    private fun getDownloadById() {
+        GlobalScope.launch {
+            val downloadItems = downloadDao.getDownloadById(streamUniqueId)
+            if (downloadItems.isNotEmpty()) {
+                isDownloaded = true
+                binding.btnDownload.setText("Downloaded")
+                binding.btnDownload.setIconDrawable(ContextCompat.getDrawable(this@ContentDetailsActivity, R.drawable.download_done))
+            }
+        }
     }
 
     private fun getMetaText(meta_data: String): TextView {

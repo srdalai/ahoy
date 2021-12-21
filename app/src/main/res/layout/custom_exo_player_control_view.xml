@@ -236,17 +236,21 @@
 
         <ImageView
             android:id="@+id/imageView2"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
             android:layout_above="@id/seekbar_brightness"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="12dp"
+            android:background="@drawable/ripple_bg"
+            android:clickable="true"
+            android:focusable="true"
+            android:padding="4dp"
             app:srcCompat="@drawable/ic_brightness_high"
             app:tint="@color/white" />
 
         <com.sdtechnocrat.ahoy.ui.VerticalSeekBar
             android:id="@+id/seekbar_brightness"
             android:layout_width="wrap_content"
-            android:layout_height="180dp"
+            android:layout_height="160dp"
             android:layout_centerVertical="true"
             android:layout_marginStart="20dp"
             android:max="100"
@@ -255,19 +259,23 @@
             android:thumbTint="@color/white" />
 
         <ImageView
-            android:id="@+id/imageView3"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:id="@+id/image_view_volume"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
             android:layout_above="@id/seekbar_volume"
             android:layout_alignParentEnd="true"
-            android:layout_marginEnd="20dp"
+            android:layout_marginEnd="12dp"
+            android:background="@drawable/ripple_bg"
+            android:clickable="true"
+            android:focusable="true"
+            android:padding="4dp"
             app:srcCompat="@drawable/ic_volume_up"
             app:tint="@color/white" />
 
         <com.sdtechnocrat.ahoy.ui.VerticalSeekBar
             android:id="@+id/seekbar_volume"
             android:layout_width="wrap_content"
-            android:layout_height="180dp"
+            android:layout_height="160dp"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:layout_marginEnd="20dp"

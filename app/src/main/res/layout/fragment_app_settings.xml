@@ -105,8 +105,7 @@
             android:layout_height="32dp"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            app:srcCompat="@drawable/toggle_on"
-            app:tint="@color/color_accent" />
+            app:srcCompat="@drawable/toggle_on" />
 
     </RelativeLayout>
 
@@ -206,8 +205,7 @@
             android:layout_height="32dp"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            app:srcCompat="@drawable/toggle_on"
-            app:tint="@color/color_accent" />
+            app:srcCompat="@drawable/toggle_on" />
 
     </RelativeLayout>
 

@@ -1,9 +1,8 @@
-package com.sdtechnocrat.ahoy.utilities
+package com.sdtechnocrat.ahoy.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.sdtechnocrat.ahoy.room.HistoryDbHelper
-import com.sdtechnocrat.ahoy.viewmodels.SearchFragmentViewModel
 
 class ViewModelFactory(private val dbHelper: HistoryDbHelper): ViewModelProvider.Factory {
 

@@ -62,12 +62,14 @@ dependencies {
     //Cast
     implementation 'androidx.appcompat:appcompat:1.4.0'
     implementation 'androidx.mediarouter:mediarouter:1.2.5'
-    implementation 'com.google.android.gms:play-services-cast-framework:20.1.0'
+    implementation 'com.google.android.gms:play-services-cast-framework:21.0.0'
 
     //room
     def room_version = "2.3.0"
-
     implementation "androidx.room:room-runtime:$room_version"
     annotationProcessor "androidx.room:room-compiler:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
+
+    def work_version = "2.7.1"
+    implementation "androidx.work:work-runtime-ktx:$work_version"
 }

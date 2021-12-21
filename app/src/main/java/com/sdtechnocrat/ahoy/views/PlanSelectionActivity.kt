@@ -25,19 +25,32 @@ class PlanSelectionActivity : AppCompatActivity() {
     private val planList = mutableListOf<PlanItem>()
     lateinit var adapter: PlansAdapter
 
+    var isUpgrade = false
+    lateinit var currentPlanId: String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityPlanSelectionBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
 
+        isUpgrade = intent.getBooleanExtra("is_upgrade", false)
+        if (isUpgrade) {
+            currentPlanId = intent.getStringExtra("current_plan_id").toString()
+            binding.textViewTitle.text = "Upgrade"
+        }
+
         binding.planRecycler.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        adapter = PlansAdapter(this, planList, 0, object : PlansAdapter.OnItemClickListener {
+        adapter = PlansAdapter(this, planList, selectedPlanPos, object : PlansAdapter.OnItemClickListener {
             override fun itemClicked(position: Int, planItem: PlanItem) {
                 Toast.makeText(this@PlanSelectionActivity, planItem.name, Toast.LENGTH_SHORT).show()
             }
         })
         binding.planRecycler.adapter = adapter
+
+        binding.imageViewBack.setOnClickListener {
+            super.onBackPressed()
+        }
 
         getStudioPlans()
     }
@@ -65,6 +78,7 @@ class PlanSelectionActivity : AppCompatActivity() {
         })
     }
 
+    var selectedPlanPos = -1
     private fun handleResponse(responseStr: String) {
         val responseObj = JSONObject(responseStr)
         val code = responseObj.optInt("code", 0)
@@ -73,9 +87,16 @@ class PlanSelectionActivity : AppCompatActivity() {
             for (i in 0 until plansArray.length()) {
                 val planObj = plansArray.getJSONObject(i)
                 val item = Gson().fromJson(planObj.toString(), PlanItem::class.java)
+                if (::currentPlanId.isInitialized && item.id.equals(currentPlanId)) {
+                    selectedPlanPos = i
+                }
                 planList.add(item)
             }
             adapter.notifyItemInserted(0)
+            adapter.setSelectedItem(selectedPlanPos)
+            if (isUpgrade) {
+                binding.planRecycler.layoutManager?.scrollToPosition(selectedPlanPos)
+            }
         }
     }
 }

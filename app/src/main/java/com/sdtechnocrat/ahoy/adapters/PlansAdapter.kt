@@ -2,12 +2,13 @@ package com.sdtechnocrat.ahoy.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.sdtechnocrat.ahoy.data.PlanItem
 import com.sdtechnocrat.ahoy.databinding.ItemPlanLayoutBinding
 
-class PlansAdapter(val context: Context, private val planList: List<PlanItem>, val activePosition: Int, val onItemClickListener: OnItemClickListener): RecyclerView.Adapter<PlansAdapter.PlanViewHolder>() {
+class PlansAdapter(val context: Context, private val planList: List<PlanItem>, private var activePosition: Int, val onItemClickListener: OnItemClickListener): RecyclerView.Adapter<PlansAdapter.PlanViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlanViewHolder {
         val binding = ItemPlanLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -24,6 +25,10 @@ class PlansAdapter(val context: Context, private val planList: List<PlanItem>, v
 
         holder.binding.tvPrice.text = planPrice
 
+        if (activePosition != -1 && position == activePosition) {
+            holder.binding.btnSubscribe.visibility = View.GONE
+            holder.binding.tvCurrent.visibility = View.VISIBLE
+        }
         holder.binding.parentFrame.isActivated = position == activePosition
 
         holder.bind(position, planItem, onItemClickListener)
@@ -31,6 +36,11 @@ class PlansAdapter(val context: Context, private val planList: List<PlanItem>, v
 
     override fun getItemCount(): Int {
         return planList.size
+    }
+
+    fun setSelectedItem(pos: Int) {
+        activePosition = pos
+        notifyDataSetChanged()
     }
 
     inner class PlanViewHolder(val binding: ItemPlanLayoutBinding): RecyclerView.ViewHolder(binding.root) {

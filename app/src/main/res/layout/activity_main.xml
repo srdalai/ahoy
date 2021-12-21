@@ -18,6 +18,39 @@
     </FrameLayout>
 
     <LinearLayout
+        android:id="@+id/offline_linear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            app:srcCompat="@drawable/cloud_off" />
+
+        <TextView
+            android:id="@+id/text_downloads"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ripple_bg"
+            android:clickable="true"
+            android:focusable="true"
+            android:paddingStart="20dp"
+            android:paddingTop="8dp"
+            android:paddingEnd="20dp"
+            android:paddingBottom="8dp"
+            android:text="Goto Downloads"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/menu_linear"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="40dp"
@@ -33,7 +66,7 @@
             android:layout_height="@dimen/home_menu_height"
             android:padding="@dimen/home_menu_padding"
             app:srcCompat="@drawable/ic_home"
-            app:tint="@color/card_gray" />
+            app:tint="@color/menu_item_icon_color" />
 
         <ImageView
             android:id="@+id/menu_search"
@@ -41,7 +74,7 @@
             android:layout_height="@dimen/home_menu_height"
             android:padding="@dimen/home_menu_padding"
             app:srcCompat="@drawable/ic_search"
-            app:tint="@color/card_gray" />
+            app:tint="@color/menu_item_icon_color" />
 
         <ImageView
             android:id="@+id/menu_category"
@@ -49,7 +82,7 @@
             android:layout_height="@dimen/home_menu_height"
             android:padding="@dimen/home_menu_padding"
             app:srcCompat="@drawable/ic_apps"
-            app:tint="@color/card_gray" />
+            app:tint="@color/menu_item_icon_color" />
 
         <ImageView
             android:id="@+id/menu_profile"
@@ -57,6 +90,6 @@
             android:layout_height="@dimen/home_menu_height"
             android:padding="@dimen/home_menu_padding"
             app:srcCompat="@drawable/ic_account_circle"
-            app:tint="@color/card_gray" />
+            app:tint="@color/menu_item_icon_color" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

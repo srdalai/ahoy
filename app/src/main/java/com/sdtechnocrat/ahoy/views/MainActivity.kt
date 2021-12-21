@@ -24,6 +24,8 @@ class MainActivity : AppCompatActivity() {
 
     private val SPEECH_REQUEST_CODE = 101
 
+    private val offlineMode: Boolean = false
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,24 +35,51 @@ class MainActivity : AppCompatActivity() {
 
         setUpListeners()
 
-        changeFragment(HomeFragment())
+        if (offlineMode) {
+            binding.menuLinear.visibility = View.GONE
+            binding.offlineLinear.visibility = View.VISIBLE
+        } else {
+            binding.menuLinear.visibility = View.VISIBLE
+            binding.offlineLinear.visibility = View.GONE
+
+            binding.menuHome.isActivated = true
+            changeFragment(HomeFragment())
+        }
     }
 
     private fun setUpListeners() {
         binding.menuHome.setOnClickListener {
+            if (currentFragment is HomeFragment) return@setOnClickListener
+            deactivateAllItems()
+            binding.menuHome.isActivated = true
             changeFragment(HomeFragment())
         }
 
         binding.menuSearch.setOnClickListener {
+            if (currentFragment is SearchFragment) return@setOnClickListener
+            deactivateAllItems()
+            binding.menuSearch.isActivated = true
             changeFragment(SearchFragment())
         }
 
         binding.menuCategory.setOnClickListener {
+            if (currentFragment is CategoryFragment) return@setOnClickListener
+            deactivateAllItems()
+            binding.menuCategory.isActivated = true
             changeFragment(CategoryFragment())
         }
 
         binding.menuProfile.setOnClickListener {
+            if (currentFragment is ProfileFragment) return@setOnClickListener
+            deactivateAllItems()
+            binding.menuProfile.isActivated = true
             changeFragment(ProfileFragment())
+        }
+        binding.textDownloads.setOnClickListener {
+            val intent = Intent(this, CommonActivity::class.java).apply {
+                putExtra("action", CommonActivity.ACTION_DOWNLOADS)
+            }
+            startActivity(intent)
         }
     }
 
@@ -60,6 +89,13 @@ class MainActivity : AppCompatActivity() {
         ft.replace(R.id.container, fragment)
         ft.commit()
         currentFragment = fragment
+    }
+
+    private fun deactivateAllItems() {
+        binding.menuHome.isActivated = false
+        binding.menuSearch.isActivated = false
+        binding.menuCategory.isActivated = false
+        binding.menuProfile.isActivated = false
     }
 
     // Create an intent that can start the Speech Recognizer activity
