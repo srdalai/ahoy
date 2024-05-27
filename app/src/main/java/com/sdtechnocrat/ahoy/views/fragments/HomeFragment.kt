@@ -176,18 +176,23 @@ class HomeFragment : Fragment() {
                 }
                 pager.fakeDragBy(value.toFloat())
             }
-            animator.addListener(object : AnimatorListenerAdapter() {
-                override fun onAnimationStart(animation: Animator?) {
+            animator.addListener(object: Animator.AnimatorListener {
+                override fun onAnimationStart(animation: Animator) {
                     animFactor = 1
                 }
 
-                override fun onAnimationEnd(animation: Animator?) {
+                override fun onAnimationEnd(animation: Animator) {
                     pager.endFakeDrag()
                 }
 
-                override fun onAnimationRepeat(animation: Animator?) {
+                override fun onAnimationCancel(animation: Animator) {
+
+                }
+
+                override fun onAnimationRepeat(animation: Animator) {
                     animFactor = -1
                 }
+
             })
             animator.start()
         }

@@ -1,7 +1,7 @@
 package com.sdtechnocrat.ahoy.room
 
 import androidx.room.*
-import androidx.room.OnConflictStrategy.REPLACE
+import androidx.room.OnConflictStrategy.Companion.REPLACE
 import com.sdtechnocrat.ahoy.data.HistoryItem
 
 @Dao
